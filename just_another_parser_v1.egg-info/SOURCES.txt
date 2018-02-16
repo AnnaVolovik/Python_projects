@@ -1,0 +1,16 @@
+MANIFEST.in
+just_another_parser_v1/__init__.py
+just_another_parser_v1/database.py
+just_another_parser_v1/just_another_parser_v1.py
+just_another_parser_v1/models.py
+just_another_parser_v1.egg-info/PKG-INFO
+just_another_parser_v1.egg-info/SOURCES.txt
+just_another_parser_v1.egg-info/dependency_links.txt
+just_another_parser_v1.egg-info/requires.txt
+just_another_parser_v1.egg-info/top_level.txt
+just_another_parser_v1/static/style.css
+just_another_parser_v1/templates/.DS_Store
+just_another_parser_v1/templates/layout.html
+just_another_parser_v1/templates/page_1.html
+just_another_parser_v1/templates/page_1_last_entry.html
+just_another_parser_v1/templates/page_2.html

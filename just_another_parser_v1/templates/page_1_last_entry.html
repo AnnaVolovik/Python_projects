@@ -1,0 +1,16 @@
+{% extends "page_1.html" %}
+{% block content %}
+<table>
+<tr>
+    <th>URL</th>
+    <th>all tags</th>
+    <th>{{'<'}}a{{'>'}} tags</th>
+    <th>{{'<'}}div{{'>'}} tags</th>
+</tr>
+<tr>
+    <td>{{ url }}</td>
+    <td>{{ all_tags }}</td>
+    <td>{{ a_tags }}</td>
+    <td>{{ div_tags }}</td>
+</tr>
+{% endblock %}

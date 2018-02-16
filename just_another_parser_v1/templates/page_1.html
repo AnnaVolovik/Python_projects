@@ -1,0 +1,11 @@
+{% extends "layout.html" %}
+{% block body %}
+<form action="{{ url_for('add_entry') }}" method=post class=add-entry>
+    <input type=text name=url placeholder="Enter the URL">
+    <input type=submit value=Submit class="transparent_button active" >
+</form>
+{% if error %}
+    <p class=error>{{ error }}
+{% endif %}
+{% block content %}{% endblock %}
+{% endblock %}
