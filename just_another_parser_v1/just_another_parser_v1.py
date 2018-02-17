@@ -27,7 +27,7 @@ def shutdown_session(exception=None):
 #landing page - redirection to the Page 1
 @app.route('/')
 def index():
-    return redirect(url_for('page_1'))
+    return redirect(url_for('add_entry'))
 
 #page 1
 @app.route('/page_1', methods = ['GET','POST']) 
