@@ -4,13 +4,14 @@
 Python 3.6, Flask, SQLAlchemy
 
 ***
-
  
 1. На 1й странице расположена форма :
     - текстовое поле
     - кнопка Submit
+    
     В текстовое поле вставляется ссылка на любую абстрактную страницу в интернете.
     По нажатию на кнопку серверная часть:
+        
         - скачивает страницу по адресу из текстового поля
         - парсит страницу и подсчитывает :
             1. Общее число тегов
@@ -21,9 +22,11 @@ Python 3.6, Flask, SQLAlchemy
  
 2. На второй странице необходимо выводить в виде таблицы 20 последних запросов с результатами.
 
-**Setup**
+**SETUP**
 
-python manage.py runserver
-python manage.py initdb
-python3 -m flask run
+`python manage.py runserver`
+
+`python manage.py initdb`
+
+`python3 -m flask run`
 
