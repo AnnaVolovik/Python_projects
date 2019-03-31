@@ -1,9 +1,10 @@
-# just_another_parser_v1
-just_another_parser плюс SQLAlchemy, обработка POST и GET запросов в одной функции (just_another_parser_v1.py).
+#  Реализовать парсер WEB страниц с простым WEB интерфейсом
+
+Тестовое задание
+Python 3.6, Flask, SQLAlchemy
 
 ***
 
-Реализовать парсер WEB страниц с простым WEB интерфейсом.
  
 1. На 1й странице расположена форма :
     - текстовое поле
@@ -19,3 +20,10 @@ just_another_parser плюс SQLAlchemy, обработка POST и GET запр
         - Возвращает в качестве результата исходную страницу с формой и подсчитанной статистикой по запросу
  
 2. На второй странице необходимо выводить в виде таблицы 20 последних запросов с результатами.
+
+**Setup**
+
+python manage.py runserver
+python manage.py initdb
+python3 -m flask run
+
