@@ -7,12 +7,6 @@ from requests.exceptions import MissingSchema, HTTPError
 
 from app import app, db
 from app.models import Entries
-#database connections
-# init_db()
-
-# @app.teardown_appcontext
-# def shutdown_session(exception=None):
-#     db_session.remove()
 
 #view functions
 
@@ -50,14 +44,12 @@ def add_entry():
     entry = Entries(url=url, all_tags=all_tags, a_tags=a_tags, div_tags=div_tags)
     db.session.add(entry)
     try:
-
         db.session.flush()
         db.session.commit()
     except:
         db.session.rollback()
         return render_template('page_1.html', error='Произошла ошибка Базы Данных')
-    return render_template(
-        'page_1_last_entry.html', url=url, all_tags=all_tags, a_tags=a_tags, div_tags=div_tags)
+    return render_template('page_1.html', entries=[dict(url=url, all_tags=all_tags, a_tags=a_tags, div_tags=div_tags)])
 
 
 #page 2 - display last 20 entries   

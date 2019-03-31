@@ -2,11 +2,20 @@
     <title>v1 Just another parser - Flask & SQLAlchemy</title>
     <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
 <body>
+    <div id="nav">
+        <ul>
+    	    <li><a href="{{ url_for('add_entry') }}">Project 1</a></li>
+            <li><a href="{{ url_for('parse_with_selenium') }}">Project 2</a></li>
+            <li><a href="#">Project 3</a></li>
+        </ul>
+    </div>
     <section>
+    <div>
         <nav>
             <a href="{{ url_for('add_entry') }} ">Page 1</a>
             <a href="{{ url_for('show_entries') }}">Page 2</a>
         </nav>
+    </div>
         {% block body %}{% endblock %}
     </section>
 </body>
