@@ -22,11 +22,11 @@ Python 3.6, Flask, SQLAlchemy
  
 2. На второй странице необходимо выводить в виде таблицы 20 последних запросов с результатами.
 
-**SETUP**
-
-`python manage.py runserver`
+**Setup**
 
 `python manage.py initdb`
 
-`python3 -m flask run`
+`python manage.py runserver`
+
+
 
