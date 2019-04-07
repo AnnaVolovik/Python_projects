@@ -15,5 +15,8 @@ SQLALCHEMY_DATABASE_URI = 'sqlite:///app.db'
 SQLALCHEMY_TRACK_MODIFICATIONS = True
 LOG_LEVEL = logging.DEBUG
 
-
+# redis config
+REDIS_HOST = 'localhost'
+REDIS_PORT = 6379
+REDIS_DB = 0
 

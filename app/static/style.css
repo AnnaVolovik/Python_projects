@@ -59,6 +59,7 @@ table {
 	width:100%;
 	background-color:transparent;
     font-weight: 200;
+    margin-bottom: 10px;
 }
 table, th, td {
 	border: 1px solid #ddd;
@@ -82,6 +83,9 @@ table tr:hover {
 	}
 .error {
     color: #A67764;
+}
+.stats {
+    color: #3E5902
 }
 a {
 	/*text-decoration:none;*/

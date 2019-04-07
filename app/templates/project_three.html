@@ -1,0 +1,61 @@
+<!doctype html>
+    <title>Web Scraping: asyncIO, redis, urllib  </title>
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+<body>
+    <div id="nav">
+        <ul>
+    	    <li><a href="{{ url_for('add_entry') }}">Project 1</a></li>
+            <li><a href="{{ url_for('project_two') }}">Project 2</a></li>
+            <li><a href="{{ url_for('project_three') }}">Project 3</a></li>
+        </ul>
+    </div>
+    <section>
+    <div>
+        <h2>Web Scraping</h2>
+        <p>Scraping an aggregator website <a href="https://www.houzz.com/professionals/architect/c/Woodbridge--ON" target="_blank">https://www.houzz.com/professionals/architect/</a>
+            to gather architect's contact information, with the help of:</p>
+        <ul>
+            <li>asyncio, aiohttp - Asynchronous HTTP Client/Server for asyncio and Python</li>
+            <li>Redis: in-memory key-value cache and store</li>
+        </ul>
+    </div>
+        <form action="{{ url_for('project_three') }}" method=post class=add-entry>
+            <input type=text name=url placeholder="https://www.houzz.com/professionals/architect/c/Woodbridge--ON">
+            <input type=submit value=Parse class="transparent_button active" >
+        </form>
+    {% if error %}
+        <div><p class=error>{{ error }}</div>
+    {% endif %}
+        {% block body %}{% endblock %}
+    {% if stats %}
+        <div><p class=stats>{{ stats }}</div>
+    {% endif %}
+
+    {% if entries %}
+        <table>
+        <tr>
+            <th>company</th>
+            <th>location</th>
+            <th>website</th>
+            <th>contact</th>
+            <th>telephone</th>
+            <th>typical cost</th>
+
+        </tr>
+        {% for entry in entries %}
+        <tr>
+            <td>{{ entry.name }}</td>
+            <td>{{ entry.location }}</td>
+            <td>{{ entry.website }}</td>
+            <td>{{ entry.contact_name }}</td>
+            <td>{{ entry.telephone }}</td>
+            <td>{{ entry.typical_cost }}</td>
+        </tr>
+        {% endfor %}
+        </table>
+{#        <form method=get action="/static/file.xlsx" class=add-entry>#}
+{#            <input type=submit value='Open MS Excel file' class="transparent_button active" >#}
+{#        </form>#}
+    {% endif %}
+    </section>
+</body>

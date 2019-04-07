@@ -5,8 +5,8 @@
     <div id="nav">
         <ul>
     	    <li><a href="{{ url_for('add_entry') }}">Project 1</a></li>
-            <li><a href="{{ url_for('parse_with_selenium') }}">Project 2</a></li>
-            <li><a href="#">Project 3</a></li>
+            <li><a href="{{ url_for('project_two') }}">Project 2</a></li>
+            <li><a href="{{ url_for('project_three') }}">Project 3</a></li>
         </ul>
     </div>
     <section>
@@ -20,7 +20,7 @@
             <li>openpyxl module for exporting results into MS Excel file</li>
         </ul>
     </div>
-        <form action="{{ url_for('parse_with_selenium') }}" method=post class=add-entry>
+        <form action="{{ url_for('project_two') }}" method=post class=add-entry>
             <input type=text name=url placeholder="https://www.103.ua/list/stomatologii/kiev/">
             <input type=submit value=Parse class="transparent_button active" >
         </form>
@@ -44,9 +44,14 @@
             <td>{{ entry.website }}</td>
             <td>{{ entry.phone }}</td>
         </tr>
-
         {% endfor %}
         </table>
+        {% if file_name %}
+            <form method=get action={{ file_name }} class=add-entry>
+{#              <form method=get action="/static/file.xlsx" class=add-entry>#}
+                <input type=submit value='Open MS Excel file' class="transparent_button active" >
+            </form>
+        {% endif %}
     {% endif %}
     </section>
 </body>
