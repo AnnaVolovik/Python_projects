@@ -1,0 +1,93 @@
+<!doctype html>
+    <title>Web Scraping: asyncIO, redis, urllib  </title>
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+
+<body>
+    <div id="nav">
+        <ul>
+    	    <li><a href="{{ url_for('add_entry') }}">Project 1</a></li>
+            <li><a href="{{ url_for('project_two') }}">Project 2</a></li>
+            <li><a href="{{ url_for('project_three') }}">Project 3</a></li>
+            <li><a href="{{ url_for('project_four') }}">Project 4</a></li>
+        </ul>
+    </div>
+    <section>
+    <div>
+        <h2>Nested data and recursion</h2>
+        <p>The project demonstrates:</p>
+        <ul>
+            <li>using recursion to restructure tree-like data</li>
+        </ul>
+        <p>Problem statement</p>
+        <p>Based on the data, table-like interfaces had to be created on the client side.</p>
+        <p>The input data, both, the content and information about the header, might have
+            been organized either flat or hierarchically: in a few layers, where each layer would
+            be a root node for the collection of children nodes, with objects being stored inside
+            of similar objects and actual data available on the deepest level in the leaf.</p>
+        <p>The process of rendering such data on the client size would take up to 40 seconds in the
+            worst case scenario. Therefore it was decided to take the data processing to the backend.</p>
+    </div>
+    <div>
+        <div class="column_45">
+            <h3>Content example</h3>
+                <p>Hierarchy, with actual content hidden in the child entities</p>
+
+                <code><pre id="input_data"></pre></code>
+
+        </div>
+        <div class="column_45">
+            <h3>Header information</h3>
+            <p>Information on how to structure output that might be hierarchical as well</p>
+            <code>
+                <pre id="input_struct"></pre>
+            </code>
+        </div>
+
+    </div>
+
+    <div>
+        <p>The goal was to return the data in the ready-to-use form: a matrix with information about each cell
+            (its order vertically and horizontally, its value and type), each column (its data type, column width, data
+            rounding, display), row (order, parent & children rows, indentation) and information about the table in general.</p>
+        <p>I decided to use recursion on the backend, and make all computations in a single action - I would keep track
+            of the row number, and assign the currect number as I go, go down to children and return to the parent nodes
+            to get_value values and compute attributes on the go.</p>
+        <p>Logic included:</p>
+        <ul>
+            <li>aggregating values on all levels of parent nodes for different types of data: sum, avg, max, min for
+                numbers, count for bools;</li>
+            <li>assigning correct type  to be rendered on the front end  based on the data type, column type and set of
+                conditions (example - boolen type & editable line would return CheckBox type, boolean type & not
+                editable line - disabledCheckBox);</li>
+            <li>computing values display - based on display parameter it would be required to return the value
+                short description, long description, code, etc</li>
+            <li>defining style attributes - cell colors (based on set of conditions), column width etc</li>
+        </ul>
+        <p>With the data being passed to the front-end as a ready to use matrix, we achieved the time of opening the
+            form 1-6 seconds.
+</p>
+
+    </div>
+    <form action="{{ url_for('project_four') }}" method=post class=add-entry>
+        <input type=submit value=Restructure class="transparent_button active" >
+    </form>
+    {% if result %}
+        <div>
+            <div id="result" ></div>
+            <br>
+            <p>The skeleton (without styles applied) of the table based on the data we received</p>
+            <table id="res_table"></table>
+        </div>
+    {% endif %}
+
+        <script src="{{ url_for('static', filename='build-table.js') }}"></script>
+        <script>
+            document.getElementById("input_data").innerHTML = JSON.stringify({{ start_data|tojson|safe }}, undefined, 1);
+            document.getElementById("input_struct").innerHTML = JSON.stringify({{ output_struct|tojson|safe }}, undefined, 2);
+            generateOutput({{ result|tojson|safe }})
+            let table = document.getElementById("res_table");
+            generateTableHead(table, {{ result|tojson|safe }}.cells);
+            generateTable(table, {{ result|tojson|safe }}.rows, {{ result|tojson|safe }}.cells)
+        </script>
+    </section>
+</body>

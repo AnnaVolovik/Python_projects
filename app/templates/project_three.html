@@ -7,16 +7,16 @@
     	    <li><a href="{{ url_for('add_entry') }}">Project 1</a></li>
             <li><a href="{{ url_for('project_two') }}">Project 2</a></li>
             <li><a href="{{ url_for('project_three') }}">Project 3</a></li>
+            <li><a href="{{ url_for('project_four') }}">Project 4</a></li>
         </ul>
     </div>
     <section>
     <div>
-        <h2>Web Scraping</h2>
-        <p>Scraping an aggregator website <a href="https://www.houzz.com/professionals/architect/c/Woodbridge--ON" target="_blank">https://www.houzz.com/professionals/architect/</a>
-            to gather architect's contact information, with the help of:</p>
+        <h2>asyncIO & AIOHTTP</h2>
+        <p>Scraping the <a href="https://www.houzz.com/professionals/architect/c/Woodbridge--ON" target="_blank">https://www.houzz.com/professionals/architect/</a>
+            website to collect contact information of architecture companies, with the help of:</p>
         <ul>
-            <li>asyncio, aiohttp - Asynchronous HTTP Client/Server for asyncio and Python</li>
-            <li>Redis: in-memory key-value cache and store</li>
+            <li>asyncio, aiohttp - to speed up I/O operations </li>
         </ul>
     </div>
         <form action="{{ url_for('project_three') }}" method=post class=add-entry>
@@ -53,9 +53,7 @@
         </tr>
         {% endfor %}
         </table>
-{#        <form method=get action="/static/file.xlsx" class=add-entry>#}
-{#            <input type=submit value='Open MS Excel file' class="transparent_button active" >#}
-{#        </form>#}
+
     {% endif %}
     </section>
 </body>

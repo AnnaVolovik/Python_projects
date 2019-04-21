@@ -7,15 +7,18 @@
     	    <li><a href="{{ url_for('add_entry') }}">Project 1</a></li>
             <li><a href="{{ url_for('project_two') }}">Project 2</a></li>
             <li><a href="{{ url_for('project_three') }}">Project 3</a></li>
+            <li><a href="{{ url_for('project_four') }}">Project 4</a></li>
         </ul>
     </div>
     <section>
     <div>
-        <h2>Web Scraping</h2>
+        <h2>Web Scraping: Selenium</h2>
         <p>Scraping an aggregator website <a href="https://www.103.ua/list/stomatologii/kiev/" target="_blank">https://www.103.ua/list/stomatologii/kiev/</a>
             to gather clinics' contact information, with the help of:</p>
         <ul>
-            <li>Selenium - Beautiful Soup (Requests on back up)</li>
+            <li>Selenium is used to open pop up windows with contact information where it is required.</li>
+            <li>Requests library is used as a backup</li>
+            <li>BeautifulSoup</li>
             <li>SQLAlchemy</li>
             <li>openpyxl module for exporting results into MS Excel file</li>
         </ul>
@@ -48,7 +51,6 @@
         </table>
         {% if file_name %}
             <form method=get action={{ file_name }} class=add-entry>
-{#              <form method=get action="/static/file.xlsx" class=add-entry>#}
                 <input type=submit value='Open MS Excel file' class="transparent_button active" >
             </form>
         {% endif %}

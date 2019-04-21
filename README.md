@@ -1,26 +1,26 @@
-#  Реализовать парсер WEB страниц с простым WEB интерфейсом
+#  A series of projects on Python 3 in a single Flask app
 
-Тестовое задание
-Python 3.6, Flask, SQLAlchemy
+1) **Web parsing**
+A simple web parser that computes a number of tags in the url provided, or returns an exception, and saves the results to a database
+- requests
+- BeautifulSoup
+- SQLAlchemy
 
-***
+2) **Web parsing: Selenium**
+A web scraper, that uses Selenium to open pop up windows as well as requests and BeautifulSoup, and openpyxl library 
+to save the result into Microsoft Word spreadsheet
+- Selenium & requests & BeautifulSoup
+- SQLAlchemy
+- openpyxl 
+
+3) **Web parsing: asyncio, aiohttp**
+A web scraper that demonstrates usage of asyncIO and aiohttp to speed up parsing of multiple pages
+ - asyncio, aiohttp
+ - BeautifulSoup
  
-1. На 1й странице расположена форма :
-    - текстовое поле
-    - кнопка Submit
-    
-    В текстовое поле вставляется ссылка на любую абстрактную страницу в интернете.
-    По нажатию на кнопку серверная часть:
-        
-        - скачивает страницу по адресу из текстового поля
-        - парсит страницу и подсчитывает :
-            1. Общее число тегов
-            2. Число тегов <a>
-            3. Число тегов <div>
-        - сохраняет результат в БД (SQLITE)
-        - Возвращает в качестве результата исходную страницу с формой и подсчитанной статистикой по запросу
- 
-2. На второй странице необходимо выводить в виде таблицы 20 последних запросов с результатами.
+4) **Nested Data & Recursion**
+The project demontrsates using recursive calls to process tree-like data
+- recursion
 
 **Setup**
 
