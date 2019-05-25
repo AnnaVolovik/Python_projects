@@ -1,59 +1,57 @@
-import os
+import json
 
 from bs4 import BeautifulSoup
-from flask import request, redirect, url_for, render_template
+from flask import request
+from flask_cors import cross_origin
 import requests
 from requests.exceptions import MissingSchema, HTTPError
 
 from app import app, db
 from app.models import Entries
 
-#view functions
 
-#landing page - redirection to the Page 1
-@app.route('/')
-def index():
-    return redirect(url_for('add_entry'))
-
-#page 1
-@app.route('/page_1', methods = ['GET', 'POST'])
+@app.route('/page_1', methods=['POST'])
+@cross_origin()
 def add_entry():
-    # метод GET, отсутствуют параметры - возвращаем начальную страницу
-    if request.method == 'GET':
-        return render_template('page_1.html')
-
-    # метод POST - забираем параметр URL, пробуем его распарсить
-    url = request.form['url']
+    """Parse a url provided and return a number of tags"""
+    data = request.get_json(silent=True)
+    url = data.get('url')
 
     try:
         r = requests.get(url)
     except MissingSchema:
-        error = f'The URL does not look correct. Perhaps you meant http://{url}?'
-        return render_template('page_1.html', error=error)
+        error = f'The URL does not look correct. Perhaps you meant: http://{url}?'
+        return json.dumps({'error':  error})
     except HTTPError:
-        error = "Could not load the page, I'm afraid"
-        return render_template('page_1.html', error=error)
+        error = f"Could not load the page {url}"
+        return json.dumps({'error': error})
     except:
-        error = "Something when wrong, I must say"
-        return render_template('page_1.html', error=error)
+        error = "Something when wrong"
+        return json.dumps({'error': error})
 
     soup = BeautifulSoup(r.content, 'lxml')
-    all_tags = len(soup.findAll())
-    a_tags = len(soup.findAll('a'))
-    div_tags = len(soup.findAll('div'))
-    entry = Entries(url=url, all_tags=all_tags, a_tags=a_tags, div_tags=div_tags)
+
+    entry = Entries(
+        url=url,
+        all_tags=len(soup.findAll()),
+        a_tags=len(soup.findAll('a')),
+        div_tags=len(soup.findAll('div'))
+    )
     db.session.add(entry)
     try:
         db.session.flush()
         db.session.commit()
     except:
         db.session.rollback()
-        return render_template('page_1.html', error='Произошла ошибка Базы Данных')
-    return render_template('page_1.html', entries=[dict(url=url, all_tags=all_tags, a_tags=a_tags, div_tags=div_tags)])
+        return json.dumps({'error': f"An error occurred while saving data to the database"})
+
+    res = [dict(url=url, all_tags=entry.all_tags, a_tags=entry.a_tags, div_tags=entry.div_tags)]
+
+    return json.dumps(res)
 
 
-#page 2 - display last 20 entries   
 @app.route('/page_2')
 def show_entries():
-    entries = Entries.query.order_by("id desc").limit(20).all()
-    return render_template('page_2.html', entries=entries)
+    """Display last 20 entries"""
+    entries = [x.as_dict() for x in Entries.query.order_by("id desc").limit(20).all()]
+    return json.dumps(sorted(entries, key=lambda x: x.get('id')))

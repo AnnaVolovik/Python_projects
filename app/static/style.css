@@ -51,7 +51,8 @@ input[type=text] {
     font-weight: 200;
     text-decoration:none;
 }
-.transparent_button:hover, .active {
+
+.transparent_button:hover, .transparent_button:active {
 	background-color:#404040;
 	color:#ffffff;
 }
@@ -81,7 +82,10 @@ table tr:nth-child(odd) {
 table tr:hover {
 	background-color: #f5f5f5
 	}
-.error {
+
+div.error {
+    float: left;
+    padding: 8px;
     color: #A67764;
 }
 .stats {
@@ -157,7 +161,10 @@ h1, h2, h3 {
 	text-align: center;
 	text-transform: uppercase;
 }
-
+h2 {
+    font-size: 300%;
+    text-align: left;
+}
 /*.code_block_div {*/
     /*width: 35%;*/
     /*display: inline-block;*/

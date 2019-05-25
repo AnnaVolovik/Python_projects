@@ -12,6 +12,8 @@ class Entries(db.Model):
     a_tags = db.Column(db.Integer)
     div_tags = db.Column(db.Integer)
 
+    def as_dict(self):
+        return {c.name: getattr(self, c.name) for c in self.__table__.columns}
 
 class DentistContacts(db.Model):
 

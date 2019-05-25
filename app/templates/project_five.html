@@ -1,5 +1,5 @@
 <!doctype html>
-    <title>v1 Just another parser - Flask & SQLAlchemy</title>
+    <title>Web Scraping: asyncIO, redis, urllib  </title>
     <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
 <body>
     <div id="nav">
@@ -10,23 +10,20 @@
             <li><a href="{{ url_for('project_four') }}">Project 4</a></li>
             <li><a href="{{ url_for('project_five') }}">Project 5</a></li>
         </ul>
-        <p></p>
     </div>
     <section>
     <div>
-    <p>A simple web parser that computes a number of tags in the url provided or returns an exception</p>
-    <ul>
-        <li>requests & BeautifulSoup</li>
-        <li>SQLAlchemy</li>
-    </ul>
+        <h2>Pandas</h2>
+        <p>Study materials. Analyzing data <a href="{{ url_for('static', filename='olympics.csv') }}" >csv</a> file
+            derived from the <a href="https://en.wikipedia.org/wiki/All-time_Olympic_Games_medal_table">All-time Olympic Games medal table Wikipedia</a> page with the help of:</p>
+        <ul>
+            <li>pandas</li>
+        </ul>
     </div>
-    <div>
-    <div>
-        <nav>
-            <a href="{{ url_for('add_entry') }} ">Page 1</a>
-            <a href="{{ url_for('show_entries') }}">Page 2</a>
-        </nav>
-    </div>
-        {% block body %}{% endblock %}
-    </section>
+    {% for table in tables %}
+            {{ table|safe }}
+    {% endfor %}
+
+
+        </section>
 </body>
