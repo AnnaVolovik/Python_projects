@@ -6,9 +6,55 @@ import time
 import urllib.request
 
 from bs4 import BeautifulSoup
-from flask import render_template, request
+from flask_cors import cross_origin
 
 from app import app, redis
+
+
+@app.route('/project_three', methods=['GET'])
+@cross_origin()
+def project_three():
+    """ Go through the architect portal, collect links to individual pages
+    Asynchronously load and scrape each page, return an object, append to a result list
+    Keep track of the time spent, present result list as a table
+    """
+
+    start_time = time.time()
+
+    # collect a list of pages to scrape
+    url = 'https://www.houzz.com/professionals/architect/c/Woodbridge--ON'
+    html = urllib.request.urlopen(url)
+    soup = BeautifulSoup(html, "html.parser")
+
+    parsing_list = []
+    for contact_block in soup.find_all('div', {'class': 'hz-pro-search-result__profile-desc'}):
+        ancor = contact_block.find('a')
+        parsing_list.append(ancor.get('href'))
+
+    html.close()
+
+    # set the event loop for asynchronous calls to download_all_sites method
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+    res = loop.run_until_complete(download_all_sites(parsing_list))
+    loop.close()
+
+    # return the statistics - TODO make stats in React
+    duration = time.time() - start_time
+    stats = f'Processed {len(res)} pages in {round(duration, 2)} seconds'
+
+    # save results to redis - try except in case redis server wasn't started
+    # try:
+    #     i = 1
+    #     for tmp in res:
+    #         for k, v in tmp.items():
+    #             if isinstance(v, type(None)):
+    #                 tmp[k] = 'None'  # redis can't have None values
+    #         redis.hmset(str(i), tmp, )
+    #         i += 1
+    # except:
+    #     pass
+    return json.dumps(res)
 
 
 async def download_all_sites(parsing_list):
@@ -78,51 +124,5 @@ async def download_site(session, url):
         return tmp
 
 
-@app.route('/project_three', methods=['GET', 'POST'])
-def project_three():
-    """ Go through the architect portal, collect links to individual pages
-    Asynchronously load and scrape each page, return an object, append to a result list
-    Keep track of the time spent, present result list as a table
-    """
 
-    if request.method == 'GET':
-        return render_template('project_three.html')
-
-    start_time = time.time()
-
-    # collect a list of pages to scrape
-    url = 'https://www.houzz.com/professionals/architect/c/Woodbridge--ON'
-    html = urllib.request.urlopen(url)
-    soup = BeautifulSoup(html, "html.parser")
-
-    parsing_list = []
-    for contact_block in soup.find_all('div', {'class': 'hz-pro-search-result__profile-desc'}):
-        ancor = contact_block.find('a')
-        parsing_list.append(ancor.get('href'))
-
-    html.close()
-
-    # set the event loop for asynchronous calls to download_all_sites method
-    loop = asyncio.new_event_loop()
-    asyncio.set_event_loop(loop)
-    res = loop.run_until_complete(download_all_sites(parsing_list))
-    loop.close()
-
-    # return the statistics - TODO make stats in React
-    duration = time.time() - start_time
-    stats = f'Processed {len(res)} pages in {round(duration, 2)} seconds'
-
-    # save results to redis - try except in case redis server wasn't started
-    # try:
-    #     i = 1
-    #     for tmp in res:
-    #         for k, v in tmp.items():
-    #             if isinstance(v, type(None)):
-    #                 tmp[k] = 'None'  # redis can't have None values
-    #         redis.hmset(str(i), tmp, )
-    #         i += 1
-    # except:
-    #     pass
-
-    return render_template('project_three.html', entries=res, stats=stats)
 

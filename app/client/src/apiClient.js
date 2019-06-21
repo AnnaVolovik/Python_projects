@@ -18,8 +18,28 @@ export default class APIClient {
         return this.perform('get', '/page_2')
     }
 
+    submitSeleniumPage() {
+        return this.perform('get', '/project_two')
+    }
+
+    submitAioHttpPage() {
+        return this.perform('get', '/project_three')
+    }
+
     getPandasDataFrame() {
-        return this.perform('get', '/project_five')
+        return this.perform('get', '/get_entire_df')
+    }
+
+    getOnlyGoldResults() {
+        return this.perform('get', '/get_only_gold')
+    }
+
+    getTreeLikeContent() {
+        console.log('hhh')
+        return this.perform('get', '/get_tree_like_content')
+    }
+    restructureTreeLikeData() {
+        return this.perform('get', '/restructure_tree_like_data')
     }
 
     async perform(method, resource, data) {

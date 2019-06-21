@@ -51,7 +51,11 @@ function generateTableHead(table, cells) {
         th.appendChild(text);
         row.appendChild(th);
         }
+
+
     }
+
+
 
 function generateTable(table, rows, cells) {
 
@@ -67,6 +71,7 @@ function generateTable(table, rows, cells) {
             cell.appendChild(text);
         }
     }
+
 }
 
 

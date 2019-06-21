@@ -1,12 +1,12 @@
 import React from 'react';
 
+import Header from './Header';
 import NavBar from './NavBar';
-import ListSkills from './ListSkills';
 import JsonToTable from './JsonToTable';
 import APIClient from '../apiClient';
 
 
-export default class ProjectOne extends React.Component {
+export default class WebScraping extends React.Component {
 
     constructor(props) {
         super(props);
@@ -19,6 +19,7 @@ export default class ProjectOne extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.addEntry = this.addEntry.bind(this);
         this.showEntries = this.showEntries.bind(this);
+        this.returnResult = this.returnResult.bind(this);
     }
 
     handleChange(event) {
@@ -35,7 +36,7 @@ export default class ProjectOne extends React.Component {
                 parsedLine: data,
                 showAllEntries: false
             })
-        )
+        );
     }
 
     addEntry() {
@@ -55,14 +56,22 @@ export default class ProjectOne extends React.Component {
         );
     }
 
+    returnResult() {
+        if (this.state.parsedLine) {
+            if ('error' in this.state.parsedLine) {
+                return (<div className='error'>{this.state.parsedLine.error}</div>);
+            } else return <JsonToTable jsonData={this.state.parsedLine} />
+        }
+    }
+
     render() {
         return (
             <div>
             <NavBar />
                 <section>
-                    <h2>Web Parsing</h2>
-                    <p>A simple web parser that computes a number of tags in the url provided or returns an exception</p>
-                    <ListSkills skills={['requests & BeautifulSoup', 'SQLAlchemy']} />
+                    <Header header="Web Scraping"
+                            intro="A simple web parser that either computes a number of tags in the url provided or returns an exception"
+                            skills={['requests & BeautifulSoup', 'SQLAlchemy']} />
                     <div>
                         <button key='add_entry' onClick={this.addEntry}>add entry</button>
                         <button key='show_entries' onClick={this.showEntries}>show entries</button>
@@ -73,7 +82,7 @@ export default class ProjectOne extends React.Component {
                             <input type="submit" value="Submit" className="dark_button"/>
                         </label>
                     </form>
-                    {this.state.parsedLine ? <JsonToTable jsonData={this.state.parsedLine}/> : null}
+                    {this.returnResult()}
                     </section>
             </div>
         )

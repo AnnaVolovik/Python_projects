@@ -2,7 +2,7 @@ from app import db
 
 
 class Entries(db.Model):
-    """ Модель для views.just_another_parser_v1 """
+    """ Model for the views.project_one """
 
     __tablename__ = 'entries'
 
@@ -13,7 +13,9 @@ class Entries(db.Model):
     div_tags = db.Column(db.Integer)
 
     def as_dict(self):
+        """Present each row of a database as a dictionary"""
         return {c.name: getattr(self, c.name) for c in self.__table__.columns}
+
 
 class DentistContacts(db.Model):
 
