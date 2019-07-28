@@ -1,4 +1,5 @@
 import json
+import os
 import time
 
 from flask import request, render_template
@@ -10,6 +11,11 @@ from ..static.tree_like_data import content, structure
 @app.route('/get_tree_like_content', methods=['GET'])
 def get_tree_like_content():
     """ Return input data: content & the structure of the output """
+    filename = os.path.join(app.root_path, 'static', 'tree_like_data_js.json')
+    # f = open(filename)
+    # content = f.read()
+    # content = json.loads(filename)
+    # return json.dumps(content)
     return json.dumps(dict(content=dict(content=content), structure=structure))
 
 

@@ -42,6 +42,10 @@ export default class APIClient {
         return this.perform('get', '/restructure_tree_like_data')
     }
 
+    getCodeContentHypotesisTesting() {
+        return this.perform('get', '/get_hypothesis_testing_functions')
+    }
+
     async perform(method, resource, data) {
         return client({
             method,

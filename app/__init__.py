@@ -20,4 +20,4 @@ redis = Redis(app)
 # q = Queue(connection=conn)
 
 # import the views after the app was initialized
-from app.views import project_one, project_two, project_three, project_four, project_five
+from app.views import project_one, project_two, project_three, project_four, project_five, project_six
