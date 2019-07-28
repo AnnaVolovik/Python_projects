@@ -1,17 +1,9 @@
 import React from 'react';
 
-import DataframeToTable from './DataframeToTable';
 import Header from './Header';
 import NavBar from './NavBar';
 
 import APIClient from '../apiClient';
-
-export function returnDF (props) {
-
-    if (props) {
-        return <DataframeToTable df={props} />
-    } else return <table></table>
-}
 
 export function generateHTML(props) {
     if (props) {
@@ -39,7 +31,6 @@ export default class HyphothesisTesting extends React.Component {
         this.apiClient.getCodeContentHypotesisTesting().then((data) =>
             this.setState(data)
         );
-        console.log(this.setState.keys)
     }
 
     render() {
